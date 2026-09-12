@@ -70,26 +70,25 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Small, Balanced & Highly Attractive Star Sparkles
+// Small, High Quantity & Full Spectrum Multi-Color Stars
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 1.5 + 1.2; // Small & Sharp Size
-    this.speedX = (Math.random() - 0.5) * 2.5;
-    this.speedY = (Math.random() - 0.5) * 2.5;
+    this.size = Math.random() * 1.6 + 1.2;
+    this.speedX = (Math.random() - 0.5) * 3;
+    this.speedY = (Math.random() - 0.5) * 3;
     
-    // Vibrant Magic Aesthetic Palette
-    const colors = ['#ffffff', '#fff3a0', '#00f5d4', '#ff70a6', '#ff9770'];
-    this.color = colors[Math.floor(Math.random() * colors.length)];
+    // Random Dynamic Colors (0° to 360° Hue - Every Color in existence)
+    this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
     this.life = 1;
     this.rotation = Math.random() * Math.PI;
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.life -= 0.04;
-    this.rotation += 0.1;
+    this.life -= 0.035;
+    this.rotation += 0.12;
   }
   draw() {
     ctx.save();
@@ -98,7 +97,6 @@ class Spark {
     ctx.shadowBlur = 10;
     ctx.shadowColor = this.color;
 
-    // Draw 4-point Diamond Star Shape for maximum attractiveness
     ctx.translate(this.x, this.y);
     ctx.rotate(this.rotation);
     ctx.beginPath();
@@ -115,8 +113,8 @@ class Spark {
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
   
-  // Balanced Spawn Frequency
-  if (Math.random() > 0.35) {
+  // Increased particle quantity per move
+  for (let i = 0; i < 3; i++) {
     particles.push(new Spark(x, y));
   }
 }
