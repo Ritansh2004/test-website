@@ -17,7 +17,6 @@ body {
   overflow: hidden;
 }
 
-/* Canvas overlay setup - Starts top level for Welcome screen */
 #trail-canvas {
   position: fixed;
   top: 0;
@@ -29,17 +28,16 @@ body {
   transition: z-index 0.1s ease;
 }
 
-/* Class added after Enter click to move trail behind main card */
 #trail-canvas.behind {
   z-index: 1;
 }
 
-/* Main Card Container */
+/* Main Card with balanced elevation shadow */
 .card {
   background: #ffffff;
   padding: 30px 20px;
   border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   text-align: center;
   width: 330px;
   display: flex;
@@ -74,6 +72,7 @@ p {
   margin-bottom: 20px;
 }
 
+/* Primary Action Buttons with soft colored shadow */
 button {
   background: linear-gradient(to right, #ff416c, #ff4b2b);
   color: white;
@@ -83,15 +82,16 @@ button {
   font-weight: 600;
   border-radius: 25px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 6px 18px rgba(255, 65, 108, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 22px rgba(255, 65, 108, 0.45);
 }
 
-/* Welcome Screen Overlay - Solid Background (No Blur Preview) */
+/* Welcome Overlay Screen */
 #welcome-screen {
   position: fixed;
   top: 0;
@@ -106,14 +106,15 @@ button:hover {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
+/* Welcome Box Card Shadow */
 .welcome-box {
   background: #ffffff;
   padding: 30px 40px;
   border-radius: 20px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   position: relative;
-  z-index: 1001; /* Canvas (1000) ke upar dikhane ke liye */
+  z-index: 1001;
 }
 
 .welcome-box h2 {
@@ -121,17 +122,17 @@ button:hover {
   margin-bottom: 10px;
 }
 
-/* Floating Mute Button */
+/* Mute Toggle Button Shadow */
 #mute-btn {
   position: fixed;
   top: 15px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: none;
   font-size: 1.2rem;
   padding: 8px 12px;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   z-index: 100;
 }
