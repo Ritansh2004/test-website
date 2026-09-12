@@ -14,6 +14,7 @@ body {
   align-items: center;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%);
+  overflow: hidden;
 }
 
 .card {
@@ -27,6 +28,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .character-container {
@@ -71,6 +73,17 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Floating Trail Canvas */
+#trail-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+}
+
 /* Welcome Screen Overlay */
 #welcome-screen {
   position: fixed;
@@ -112,52 +125,4 @@ button:hover {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   z-index: 100;
-}
-
-/* Floating Heart Animation */
-.heart {
-  position: fixed;
-  font-size: 20px;
-  user-select: none;
-  pointer-events: none;
-  z-index: 9999;
-  animation: floatUp 2s linear forwards;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-120px) scale(1.5);
-    opacity: 0;
-  }
-}
-
-#trail-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 99999; /* Isse canvas hamesha top par rahega */
-}
-
-#welcome-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
 }

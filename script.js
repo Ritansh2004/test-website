@@ -6,10 +6,8 @@ function startExperience() {
   const welcomeScreen = document.getElementById('welcome-screen');
   const muteBtn = document.getElementById('mute-btn');
 
-  // Play audio on Enter click
   music.play().catch(e => console.log("Audio play error:", e));
 
-  // Hide welcome screen and show mute button
   welcomeScreen.style.opacity = '0';
   welcomeScreen.style.visibility = 'hidden';
   setTimeout(() => {
@@ -58,6 +56,7 @@ function firstInteraction() {
   }
 }
 
+// Fruit Ninja Trail Effect
 const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -71,7 +70,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Sparkle Particle Constructor
 class Spark {
   constructor(x, y) {
     this.x = x;
@@ -79,7 +77,7 @@ class Spark {
     this.size = Math.random() * 4 + 2;
     this.speedX = (Math.random() - 0.5) * 5;
     this.speedY = (Math.random() - 0.5) * 5;
-    this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`; // Pink/White glowing shades
+    this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
     this.life = 1;
   }
   update() {
@@ -102,14 +100,11 @@ class Spark {
 
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
-  
-  // Sparks emit karne ke liye
   for (let i = 0; i < 2; i++) {
     particles.push(new Spark(x, y));
   }
 }
 
-// Event Listeners (Mouse & Mobile Touch)
 document.addEventListener('mousemove', (e) => addPoint(e.clientX, e.clientY));
 document.addEventListener('touchmove', (e) => {
   const touch = e.touches[0];
@@ -120,16 +115,13 @@ function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  // 180ms tak points active rahenge
   points = points.filter(p => now - p.time < 180);
 
-  // 1. Draw Smooth Glowing Blade Trail
   if (points.length > 2) {
     ctx.save();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Outer Neon Glow Layer
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 1; i < points.length - 1; i++) {
@@ -143,7 +135,6 @@ function animateTrail() {
     ctx.shadowColor = '#ff65a3';
     ctx.stroke();
 
-    // Inner White Light Core Layer (Fruit Ninja Blade Effect)
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 1; i < points.length - 1; i++) {
@@ -160,7 +151,6 @@ function animateTrail() {
     ctx.restore();
   }
 
-  // 2. Draw & Update Spark Particles
   particles.forEach((p, index) => {
     p.update();
     p.draw();
