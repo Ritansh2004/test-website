@@ -59,7 +59,7 @@ function firstInteraction() {
     // Fade in effect
     character.style.opacity = 1;
     greeting.style.opacity = 1;
-  }, 200);
+  }, 2000);
 }
 
 /* Canvas Trail */
