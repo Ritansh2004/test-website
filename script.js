@@ -12,6 +12,9 @@ function startExperience() {
   // Hide welcome screen and show mute button
   welcomeScreen.style.opacity = '0';
   welcomeScreen.style.visibility = 'hidden';
+  setTimeout(() => {
+    welcomeScreen.style.display = 'none';
+  }, 500);
   muteBtn.style.display = 'block';
 }
 
