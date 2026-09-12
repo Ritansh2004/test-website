@@ -137,3 +137,14 @@ button:hover {
     opacity: 0;
   }
 }
+
+/* Canvas overlay setup */
+#trail-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Mouse interactions ko transparent rakhta hai */
+  z-index: 9998;
+}

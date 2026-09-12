@@ -55,37 +55,55 @@ function firstInteraction() {
   }
 }
 
-// Android Touch & Mouse Floating Hearts Effect
-function createHeart(x, y) {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  
-  // Heart symbols array
-  const hearts = ["💖", "💗", "✨", "💕", "🌸"];
-  heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-  
-  heart.style.left = `${x - 10}px`;
-  heart.style.top = `${y - 10}px`;
-  
-  document.body.appendChild(heart);
-  
-  setTimeout(() => {
-    heart.remove();
-  }, 2000);
+const canvas = document.getElementById('trail-canvas');
+const ctx = canvas.getContext('2d');
+
+let points = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function addPoint(x, y) {
+  points.push({ x, y, time: Date.now() });
 }
 
-// Mobile Touch Event
-document.addEventListener("touchmove", (e) => {
+// Mouse aur Touch movement events
+document.addEventListener('mousemove', (e) => addPoint(e.clientX, e.clientY));
+document.addEventListener('touchmove', (e) => {
   const touch = e.touches[0];
-  createHeart(touch.clientX, touch.clientY);
+  addPoint(touch.clientX, touch.clientY);
 });
 
-document.addEventListener("touchstart", (e) => {
-  const touch = e.touches[0];
-  createHeart(touch.clientX, touch.clientY);
-});
+function drawTrail() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const now = Date.now();
+  
+  // 150ms se purane points remove karein
+  points = points.filter(p => now - p.time < 150);
 
-// Desktop Click/Move Support
-document.addEventListener("click", (e) => {
-  createHeart(e.clientX, e.clientY);
-});
+  if (points.length > 1) {
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+
+    // Glowing Fruit Ninja Trail Style
+    ctx.strokeStyle = '#ff4b2b';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = '#ff416c';
+    ctx.stroke();
+  }
+
+  requestAnimationFrame(drawTrail);
+}
+
+drawTrail();
