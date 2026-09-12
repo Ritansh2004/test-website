@@ -5,8 +5,12 @@ function startExperience() {
   const music = document.getElementById('bg-music');
   const welcomeScreen = document.getElementById('welcome-screen');
   const muteBtn = document.getElementById('mute-btn');
+  const canvas = document.getElementById('trail-canvas');
 
   music.play().catch(e => console.log("Audio play error:", e));
+
+  // Move trail layer behind the main card right when entering
+  canvas.classList.add('behind');
 
   welcomeScreen.style.opacity = '0';
   welcomeScreen.style.visibility = 'hidden';

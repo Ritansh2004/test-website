@@ -17,6 +17,24 @@ body {
   overflow: hidden;
 }
 
+/* Canvas overlay setup - Starts top level for Welcome screen */
+#trail-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1000;
+  transition: z-index 0.1s ease;
+}
+
+/* Class added after Enter click to move trail behind main card */
+#trail-canvas.behind {
+  z-index: 1;
+}
+
+/* Main Card Container */
 .card {
   background: #ffffff;
   padding: 30px 20px;
@@ -73,46 +91,18 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Canvas overlay setup - Background level */
-#trail-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1; /* Background par rakhne ke liye */
-}
-
-/* Main Card Container - Foreground level */
-.card {
-  background: #ffffff;
-  padding: 30px 20px;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  width: 330px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 10; /* Card ko canvas ke upar dikhane ke liye */
-}
-
-/* Welcome Screen Overlay */
+/* Welcome Screen Overlay - Solid Background (No Blur Preview) */
 #welcome-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Glass effect taaki background trail enter screen par bhi dikhe */
-  background: rgba(255, 154, 158, 0.85);
-  backdrop-filter: blur(5px);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 50; /* Card se aage par trail layer ke upar */
+  z-index: 500;
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
@@ -122,6 +112,7 @@ button:hover {
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 501;
 }
 
 .welcome-box h2 {
