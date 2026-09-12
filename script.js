@@ -59,6 +59,7 @@ const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
 let points = [];
+let particles = [];
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -67,43 +68,103 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-function addPoint(x, y) {
-  points.push({ x, y, time: Date.now() });
+// Sparkle Particle Constructor
+class Spark {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = Math.random() * 4 + 2;
+    this.speedX = (Math.random() - 0.5) * 5;
+    this.speedY = (Math.random() - 0.5) * 5;
+    this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`; // Pink/White glowing shades
+    this.life = 1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.life -= 0.04;
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.life;
+    ctx.fillStyle = this.color;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
 }
 
-// Mouse aur Touch movement events
+function addPoint(x, y) {
+  points.push({ x, y, time: Date.now() });
+  
+  // Sparks emit karne ke liye
+  for (let i = 0; i < 2; i++) {
+    particles.push(new Spark(x, y));
+  }
+}
+
+// Event Listeners (Mouse & Mobile Touch)
 document.addEventListener('mousemove', (e) => addPoint(e.clientX, e.clientY));
 document.addEventListener('touchmove', (e) => {
   const touch = e.touches[0];
   addPoint(touch.clientX, touch.clientY);
 });
 
-function drawTrail() {
+function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  // 150ms se purane points remove karein
-  points = points.filter(p => now - p.time < 150);
+  // 180ms tak points active rahenge
+  points = points.filter(p => now - p.time < 180);
 
-  if (points.length > 1) {
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-
-    for (let i = 1; i < points.length; i++) {
-      ctx.lineTo(points[i].x, points[i].y);
-    }
-
-    // Glowing Fruit Ninja Trail Style
-    ctx.strokeStyle = '#ff4b2b';
-    ctx.lineWidth = 6;
+  // 1. Draw Smooth Glowing Blade Trail
+  if (points.length > 2) {
+    ctx.save();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = '#ff416c';
+
+    // Outer Neon Glow Layer
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.strokeStyle = '#ff2a75';
+    ctx.lineWidth = 10;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = '#ff65a3';
     ctx.stroke();
+
+    // Inner White Light Core Layer (Fruit Ninja Blade Effect)
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 4;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = '#ffffff';
+    ctx.stroke();
+
+    ctx.restore();
   }
 
-  requestAnimationFrame(drawTrail);
+  // 2. Draw & Update Spark Particles
+  particles.forEach((p, index) => {
+    p.update();
+    p.draw();
+    if (p.life <= 0) particles.splice(index, 1);
+  });
+
+  requestAnimationFrame(animateTrail);
 }
 
-drawTrail();
+animateTrail();
