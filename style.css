@@ -82,16 +82,16 @@ button:hover {
   box-shadow: 0 8px 25px rgba(220, 30, 70, 0.65);
 }
 
-/* 1st Typewriting Style */
+/* 1st Typewriting Style (Gap reduced) */
 .type-wrap {
   font-size: 0.95rem;
   font-weight: 500;
   color: #444;
-  min-height: 45px;
+  min-height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .typed-text {
@@ -101,10 +101,10 @@ button:hover {
   animation: blink 0.7s infinite;
 }
 
-/* 2nd Synced Typewriting Style */
+/* 2nd Synced Typewriting Style (Gap reduced) */
 .type-wrap.custom-wrap {
   margin-bottom: 15px;
-  min-height: 40px;
+  min-height: 28px;
 }
 
 .typed-text.custom-text {
