@@ -86,7 +86,7 @@ button {
   font-weight: 600;
   border-radius: 25px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(255, 65, 108, 0.25);
+  box-shadow: 0 8px 25px rgba(255, 65, 108, 0.45);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation: gradientShift 6s ease infinite;
   position: relative;
@@ -115,7 +115,7 @@ button:hover::after {
 
 button:hover {
   transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 8px 20px rgba(255, 75, 43, 0.4);
+  box-shadow: 0 3px 8px rgba(255, 75, 43, 0.2);
   background-position: right center;
 }
 
