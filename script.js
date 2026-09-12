@@ -52,7 +52,7 @@ function firstInteraction() {
   }
 }
 
-// Canvas Trail
+/* Canvas Trail */
 const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -167,8 +167,8 @@ function animateTrail() {
 
 animateTrail();
 
-// Multi-Text Rotating & Deleting Effect Logic
-let phrases = [
+/* Default Main Typewriter Loop */
+const phrases = [
   "You make my world so much brighter! ✨",
   "I made this special page for you 💖",
   "Keep smiling always! 😊",
@@ -208,12 +208,56 @@ function typeEffect() {
   setTimeout(typeEffect, delay);
 }
 
-// Testing Feature: Add phrase dynamically from test input
+/* 2nd Custom Separate Typewriter Loop Logic */
+let customPhrases = [];
+let customPIndex = 0;
+let customCharIndex = 0;
+let customIsDeleting = false;
+let customLoopStarted = false;
+
+function customTypeEffect() {
+  const target = document.getElementById("custom-typewriter");
+  if (!target || customPhrases.length === 0) return;
+
+  const currentPhrase = customPhrases[customPIndex];
+  
+  if (customIsDeleting) {
+    target.textContent = currentPhrase.substring(0, customCharIndex - 1);
+    customCharIndex--;
+  } else {
+    target.textContent = currentPhrase.substring(0, customCharIndex + 1);
+    customCharIndex++;
+  }
+
+  let delay = customIsDeleting ? 45 : speed;
+
+  if (!customIsDeleting && customCharIndex === currentPhrase.length) {
+    delay = 1800;
+    customIsDeleting = true;
+  } else if (customIsDeleting && customCharIndex === 0) {
+    customIsDeleting = false;
+    customPIndex = (customPIndex + 1) % customPhrases.length;
+    delay = 400;
+  }
+
+  setTimeout(customTypeEffect, delay);
+}
+
 function addCustomPhrase() {
   const input = document.getElementById("custom-text-input");
-  if (input.value.trim() !== "") {
-    phrases.push(input.value.trim());
+  const text = input.value.trim();
+
+  if (text !== "") {
+    customPhrases.push(text);
     input.value = "";
+
+    const wrap = document.getElementById("custom-type-wrap");
+    if (wrap) wrap.style.display = "flex";
+
+    if (!customLoopStarted) {
+      customLoopStarted = true;
+      customTypeEffect();
+    }
   }
 }
 

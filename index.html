@@ -15,7 +15,7 @@
   <div id="welcome-screen">
     <div class="welcome-box">
       <h2>Welcome 💖</h2>
-      <p>Click below to enter your surprise</p>
+      <p><b>Click below to enter your surprise</b></p>
       <button id="enter-btn" onclick="startExperience()">Enter ✨</button>
     </div>
   </div>
@@ -36,12 +36,17 @@
     
     <h1 id="greeting">Hi there! 👋</h1>
     
-    <!-- Dynamic Typewriter Display Area -->
+    <!-- Default Main Typewriter Display Area -->
     <div class="type-wrap">
       <span id="typewriter" class="typed-text"></span>
     </div>
 
-    <!-- Hidden Static Paragraph kept for interaction fallback -->
+    <!-- 2nd Custom Separated Typewriter Display Area -->
+    <div id="custom-type-wrap" class="type-wrap custom-wrap" style="display: none;">
+      <span id="custom-typewriter" class="typed-text custom-text"></span>
+    </div>
+
+    <!-- Hidden Static Paragraph -->
     <p id="message" style="display: none;"></p>
     
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
