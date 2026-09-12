@@ -54,3 +54,38 @@ function firstInteraction() {
     btn.style.display = 'none';
   }
 }
+
+// Android Touch & Mouse Floating Hearts Effect
+function createHeart(x, y) {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  
+  // Heart symbols array
+  const hearts = ["💖", "💗", "✨", "💕", "🌸"];
+  heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+  
+  heart.style.left = `${x - 10}px`;
+  heart.style.top = `${y - 10}px`;
+  
+  document.body.appendChild(heart);
+  
+  setTimeout(() => {
+    heart.remove();
+  }, 2000);
+}
+
+// Mobile Touch Event
+document.addEventListener("touchmove", (e) => {
+  const touch = e.touches[0];
+  createHeart(touch.clientX, touch.clientY);
+});
+
+document.addEventListener("touchstart", (e) => {
+  const touch = e.touches[0];
+  createHeart(touch.clientX, touch.clientY);
+});
+
+// Desktop Click/Move Support
+document.addEventListener("click", (e) => {
+  createHeart(e.clientX, e.clientY);
+});

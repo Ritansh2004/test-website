@@ -113,3 +113,27 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   z-index: 100;
 }
+
+/* Floating Heart Animation */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 9999;
+  animation: floatUp 2s linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120px) scale(1.5);
+    opacity: 0;
+  }
+}
