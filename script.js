@@ -74,9 +74,9 @@ class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 3 + 1.5;
-    this.speedX = (Math.random() - 0.5) * 4;
-    this.speedY = (Math.random() - 0.5) * 4;
+    this.size = Math.random() * 2.5 + 1;
+    this.speedX = (Math.random() - 0.5) * 3;
+    this.speedY = (Math.random() - 0.5) * 3;
     this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
     this.life = 1;
   }
@@ -89,7 +89,7 @@ class Spark {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 6;
     ctx.shadowColor = '#ffffff';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -113,37 +113,41 @@ function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  points = points.filter(p => now - p.time < 160);
+  points = points.filter(p => now - p.time < 150);
 
   if (points.length > 2) {
     ctx.save();
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Smooth Quadratic Curves with tapered width
+    // Smooth Single Path Rendering
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+
     for (let i = 1; i < points.length - 1; i++) {
-      const progress = i / points.length;
       const xc = (points[i].x + points[i + 1].x) / 2;
       const yc = (points[i].y + points[i + 1].y) / 2;
-
-      // Outer Pink Glow Curve
-      ctx.beginPath();
-      ctx.moveTo(points[i - 1].x, points[i - 1].y);
       ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-      ctx.strokeStyle = '#ff2a75';
-      ctx.lineWidth = progress * 7 + 1.5;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = '#ff65a3';
-      ctx.stroke();
-
-      // Inner White Core Curve
-      ctx.beginPath();
-      ctx.moveTo(points[i - 1].x, points[i - 1].y);
-      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = progress * 3.5 + 0.8;
-      ctx.stroke();
     }
+
+    // Outer Glow Blade (Uniform Smooth Taper)
+    ctx.strokeStyle = '#ff2a75';
+    ctx.lineWidth = 6;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#ff65a3';
+    ctx.stroke();
+
+    // Inner White Core
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
 
     ctx.restore();
   }
