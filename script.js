@@ -214,7 +214,6 @@ function addCustomPhrase() {
   if (input.value.trim() !== "") {
     phrases.push(input.value.trim());
     input.value = "";
-    alert("New phrase added to rotation loop! 🚀");
   }
 }
 
