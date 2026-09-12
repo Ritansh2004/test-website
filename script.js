@@ -56,7 +56,7 @@ function firstInteraction() {
   }
 }
 
-// Fruit Ninja Tapered Blade Trail Effect
+// Canvas Setup
 const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -70,27 +70,27 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Small & Less Sparkle Particles
+// Medium Size Sparkle Particles
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 2 + 1; // Size chota kiya
-    this.speedX = (Math.random() - 0.5) * 3;
-    this.speedY = (Math.random() - 0.5) * 3;
+    this.size = Math.random() * 3 + 1.5; // Medium particle size
+    this.speedX = (Math.random() - 0.5) * 4;
+    this.speedY = (Math.random() - 0.5) * 4;
     this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
     this.life = 1;
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.life -= 0.05;
+    this.life -= 0.04;
   }
   draw() {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 6;
+    ctx.shadowBlur = 8;
     ctx.shadowColor = '#ffffff';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -102,10 +102,8 @@ class Spark {
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
   
-  // Sparkle dots ki quantity kam kar di hai
-  if (Math.random() > 0.5) {
-    particles.push(new Spark(x, y));
-  }
+  // Moderate Sparkle Generation
+  particles.push(new Spark(x, y));
 }
 
 document.addEventListener('mousemove', (e) => addPoint(e.clientX, e.clientY));
@@ -118,33 +116,33 @@ function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  points = points.filter(p => now - p.time < 130);
+  points = points.filter(p => now - p.time < 150);
 
   if (points.length > 1) {
     ctx.save();
     ctx.lineCap = 'butt';
     ctx.lineJoin = 'round';
 
-    // Triangle / Tapered Blade Shape Effect
+    // Balanced Tapered Blade Shape (1px -> 7px Width)
     for (let i = 0; i < points.length - 1; i++) {
-      const progress = i / points.length; 
+      const progress = i / points.length;
       
-      // Outer Glow Line (Patli aur sharp)
+      // Outer Pink Glow
       ctx.beginPath();
       ctx.moveTo(points[i].x, points[i].y);
       ctx.lineTo(points[i + 1].x, points[i + 1].y);
       ctx.strokeStyle = '#ff2a75';
-      ctx.lineWidth = progress * 4 + 1;
-      ctx.shadowBlur = 8;
+      ctx.lineWidth = progress * 6 + 1.5;
+      ctx.shadowBlur = 12;
       ctx.shadowColor = '#ff65a3';
       ctx.stroke();
 
-      // Inner White Core (Ultra Thin)
+      // Inner White Core Line
       ctx.beginPath();
       ctx.moveTo(points[i].x, points[i].y);
       ctx.lineTo(points[i + 1].x, points[i + 1].y);
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = progress * 2 + 0.5;
+      ctx.lineWidth = progress * 3 + 0.8;
       ctx.stroke();
     }
 
