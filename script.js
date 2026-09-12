@@ -167,7 +167,7 @@ function animateTrail() {
 
 animateTrail();
 
-/* Default Main Typewriter Loop */
+/* Default Main Typewriter Phrases */
 const phrases = [
   "You make my world so much brighter! ✨",
   "I made this special page for you 💖",
@@ -175,72 +175,64 @@ const phrases = [
   "Are you ready for the magic? 🎉"
 ];
 
+/* Custom Phrases Pool */
+let customPhrases = [];
+
 let pIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 const speed = 90;
 
-function typeEffect() {
-  const target = document.getElementById("typewriter");
-  if (!target) return;
+let customPIndex = 0;
+let customCharIndex = 0;
+
+/* Synchronized Frame Loop Engine */
+function syncTypeEffect() {
+  const mainTarget = document.getElementById("typewriter");
+  const customTarget = document.getElementById("custom-typewriter");
+
+  if (!mainTarget) return;
 
   const currentPhrase = phrases[pIndex];
-  
+
   if (isDeleting) {
-    target.textContent = currentPhrase.substring(0, charIndex - 1);
+    mainTarget.textContent = currentPhrase.substring(0, charIndex - 1);
     charIndex--;
+
+    if (customPhrases.length > 0 && customTarget) {
+      const currentCustomPhrase = customPhrases[customPIndex];
+      customTarget.textContent = currentCustomPhrase.substring(0, customCharIndex - 1);
+      customCharIndex--;
+    }
   } else {
-    target.textContent = currentPhrase.substring(0, charIndex + 1);
+    mainTarget.textContent = currentPhrase.substring(0, charIndex + 1);
     charIndex++;
+
+    if (customPhrases.length > 0 && customTarget) {
+      const currentCustomPhrase = customPhrases[customPIndex];
+      customTarget.textContent = currentCustomPhrase.substring(0, customCharIndex + 1);
+      customCharIndex++;
+    }
   }
 
   let delay = isDeleting ? 45 : speed;
 
+  // Synced Sentence Completion Pause
   if (!isDeleting && charIndex === currentPhrase.length) {
     delay = 1800;
     isDeleting = true;
   } else if (isDeleting && charIndex === 0) {
     isDeleting = false;
     pIndex = (pIndex + 1) % phrases.length;
+    
+    if (customPhrases.length > 0) {
+      customPIndex = (customPIndex + 1) % customPhrases.length;
+    }
+    customCharIndex = 0;
     delay = 400;
   }
 
-  setTimeout(typeEffect, delay);
-}
-
-/* 2nd Custom Separate Typewriter Loop Logic */
-let customPhrases = [];
-let customPIndex = 0;
-let customCharIndex = 0;
-let customIsDeleting = false;
-let customLoopStarted = false;
-
-function customTypeEffect() {
-  const target = document.getElementById("custom-typewriter");
-  if (!target || customPhrases.length === 0) return;
-
-  const currentPhrase = customPhrases[customPIndex];
-  
-  if (customIsDeleting) {
-    target.textContent = currentPhrase.substring(0, customCharIndex - 1);
-    customCharIndex--;
-  } else {
-    target.textContent = currentPhrase.substring(0, customCharIndex + 1);
-    customCharIndex++;
-  }
-
-  let delay = customIsDeleting ? 45 : speed;
-
-  if (!customIsDeleting && customCharIndex === currentPhrase.length) {
-    delay = 1800;
-    customIsDeleting = true;
-  } else if (customIsDeleting && customCharIndex === 0) {
-    customIsDeleting = false;
-    customPIndex = (customPIndex + 1) % customPhrases.length;
-    delay = 400;
-  }
-
-  setTimeout(customTypeEffect, delay);
+  setTimeout(syncTypeEffect, delay);
 }
 
 function addCustomPhrase() {
@@ -253,12 +245,7 @@ function addCustomPhrase() {
 
     const wrap = document.getElementById("custom-type-wrap");
     if (wrap) wrap.style.display = "flex";
-
-    if (!customLoopStarted) {
-      customLoopStarted = true;
-      customTypeEffect();
-    }
   }
 }
 
-document.addEventListener("DOMContentLoaded", typeEffect);
+document.addEventListener("DOMContentLoaded", syncTypeEffect);
