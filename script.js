@@ -62,13 +62,16 @@ function firstInteraction() {
   }, 500);
 }
 
-// Smooth "No" button escape logic (Prevents overlapping)
+// Non-overlapping "No" button escape logic
 function moveNoButton() {
   const noBtn = document.getElementById('no-btn');
   
-  // Safe random boundaries inside the card without overlapping "Yes" or touching edges
-  const randomX = (Math.random() - 0.5) * 160; 
-  const randomY = (Math.random() - 0.5) * 100;
+  // Directions array taaki button hamesha alag-alag jagah bhaage
+  const xMoves = [-90, -70, 70, 90, -110, 110];
+  const yMoves = [-60, 60, -70, 70, -50];
+  
+  const randomX = xMoves[Math.floor(Math.random() * xMoves.length)];
+  const randomY = yMoves[Math.floor(Math.random() * yMoves.length)];
 
   noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }

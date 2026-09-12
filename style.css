@@ -266,44 +266,58 @@ button:active {
 
 .letter-box {
   background: #fffdf9;
-  padding: 35px 25px;
+  padding: 35px 25px 25px 25px;
   border-radius: 20px;
   width: 90%;
   max-width: 400px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   border: 2px dashed #ff4b2b;
-  position: relative;
+  position: relative; /* Absolute elements ke liye zaroori hai */
   transform: scale(0.9);
   animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.letter-header {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ff4b2b;
-  margin-bottom: 15px;
+/* Perfect Top-Right Corner Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #f0f0f0;
+  border: none;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: none !important;
+  animation: none !important;
+  transition: all 0.2s ease;
+  z-index: 10;
 }
 
-.letter-text {
-  font-size: 0.95rem;
-  color: #444;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  text-align: left;
+.close-btn:hover {
+  background: #ff4b2b;
+  color: white;
+  transform: scale(1.1);
 }
 
 .proposal-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 15px;
   position: relative;
+  min-height: 50px;
 }
 
 #no-btn {
-  background: linear-gradient(135deg, #bdc3c7, #2c3e50);
   position: relative;
-  transition: 0.1s ease;
+  transition: transform 0.25s ease-out;
 }
 
 @keyframes fadeIn {
