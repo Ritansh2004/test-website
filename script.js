@@ -62,23 +62,39 @@ function firstInteraction() {
   }, 500);
 }
 
-// "No" button escaping trick
+// Smooth "No" button escape logic (Prevents overlapping)
 function moveNoButton() {
   const noBtn = document.getElementById('no-btn');
-  const x = Math.random() * 140 - 70;
-  const y = Math.random() * 80 - 40;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  
+  // Safe random boundaries inside the card without overlapping "Yes" or touching edges
+  const randomX = (Math.random() - 0.5) * 160; 
+  const randomY = (Math.random() - 0.5) * 100;
+
+  noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
 }
 
 // "Yes" button celebration
 function acceptProposal() {
   const letterBox = document.querySelector('.letter-box');
   letterBox.innerHTML = `
-    <h2 style="color: #ff4b2b; margin-bottom: 15px;">Yay! 🎉💖</h2>
+    <button class="close-btn" onclick="closeProposal()">×</button>
+    <h2 style="color: #ff4b2b; margin-bottom: 15px; margin-top: 10px;">Yay! 🎉💖</h2>
     <p style="font-size: 1rem; color: #444; line-height: 1.5;">
       You just made me the happiest person ever! 🥰<br>Our journey begins now. ✨
     </p>
   `;
+}
+
+// Close Proposal Popup function
+function closeProposal() {
+  document.getElementById('proposal-screen').style.display = 'none';
+  // Reset click count if they want to open it again via main button
+  clickCount = 0;
+  const greeting = document.getElementById('greeting');
+  const btn = document.getElementById('main-btn');
+  greeting.innerText = "Hi there! 😊";
+  btn.style.display = 'block';
+  btn.innerText = "Click Me! ✨";
 }
 
 /* Canvas Trail */
