@@ -70,12 +70,11 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Medium Size Sparkle Particles
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 3 + 1.5; // Medium particle size
+    this.size = Math.random() * 3 + 1.5;
     this.speedX = (Math.random() - 0.5) * 4;
     this.speedY = (Math.random() - 0.5) * 4;
     this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
@@ -101,8 +100,6 @@ class Spark {
 
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
-  
-  // Moderate Sparkle Generation
   particles.push(new Spark(x, y));
 }
 
@@ -116,33 +113,35 @@ function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  points = points.filter(p => now - p.time < 150);
+  points = points.filter(p => now - p.time < 160);
 
-  if (points.length > 1) {
+  if (points.length > 2) {
     ctx.save();
-    ctx.lineCap = 'butt';
+    ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Balanced Tapered Blade Shape (1px -> 7px Width)
-    for (let i = 0; i < points.length - 1; i++) {
+    // Smooth Quadratic Curves with tapered width
+    for (let i = 1; i < points.length - 1; i++) {
       const progress = i / points.length;
-      
-      // Outer Pink Glow
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+
+      // Outer Pink Glow Curve
       ctx.beginPath();
-      ctx.moveTo(points[i].x, points[i].y);
-      ctx.lineTo(points[i + 1].x, points[i + 1].y);
+      ctx.moveTo(points[i - 1].x, points[i - 1].y);
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
       ctx.strokeStyle = '#ff2a75';
-      ctx.lineWidth = progress * 6 + 1.5;
-      ctx.shadowBlur = 12;
+      ctx.lineWidth = progress * 7 + 1.5;
+      ctx.shadowBlur = 10;
       ctx.shadowColor = '#ff65a3';
       ctx.stroke();
 
-      // Inner White Core Line
+      // Inner White Core Curve
       ctx.beginPath();
-      ctx.moveTo(points[i].x, points[i].y);
-      ctx.lineTo(points[i + 1].x, points[i + 1].y);
+      ctx.moveTo(points[i - 1].x, points[i - 1].y);
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = progress * 3 + 0.8;
+      ctx.lineWidth = progress * 3.5 + 0.8;
       ctx.stroke();
     }
 
