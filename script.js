@@ -70,31 +70,43 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Bolder & Brighter Sparkle Particles
+// Small, Balanced & Highly Attractive Star Sparkles
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 4 + 2.5; // Bigger size for bold look
-    this.speedX = (Math.random() - 0.5) * 3.5;
-    this.speedY = (Math.random() - 0.5) * 3.5;
-    const colors = ['#ffe082', '#ffd54f', '#00e5ff', '#ffffff'];
+    this.size = Math.random() * 1.5 + 1.2; // Small & Sharp Size
+    this.speedX = (Math.random() - 0.5) * 2.5;
+    this.speedY = (Math.random() - 0.5) * 2.5;
+    
+    // Vibrant Magic Aesthetic Palette
+    const colors = ['#ffffff', '#fff3a0', '#00f5d4', '#ff70a6', '#ff9770'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
     this.life = 1;
+    this.rotation = Math.random() * Math.PI;
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.life -= 0.035;
+    this.life -= 0.04;
+    this.rotation += 0.1;
   }
   draw() {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 12; // High glow intensity
-    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = this.color;
+
+    // Draw 4-point Diamond Star Shape for maximum attractiveness
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    for (let i = 0; i < 4; i++) {
+      ctx.lineTo(Math.cos((i * Math.PI) / 2) * this.size * 2, Math.sin((i * Math.PI) / 2) * this.size * 2);
+      ctx.lineTo(Math.cos((i * Math.PI) / 2 + Math.PI / 4) * (this.size * 0.5), Math.sin((i * Math.PI) / 2 + Math.PI / 4) * (this.size * 0.5));
+    }
+    ctx.closePath();
     ctx.fill();
     ctx.restore();
   }
@@ -102,7 +114,11 @@ class Spark {
 
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
-  particles.push(new Spark(x, y));
+  
+  // Balanced Spawn Frequency
+  if (Math.random() > 0.35) {
+    particles.push(new Spark(x, y));
+  }
 }
 
 document.addEventListener('mousemove', (e) => addPoint(e.clientX, e.clientY));
