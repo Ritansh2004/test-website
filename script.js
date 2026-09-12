@@ -56,7 +56,7 @@ function firstInteraction() {
   }
 }
 
-// Fruit Ninja Trail Effect
+// Fruit Ninja Tapered Blade Trail Effect
 const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -70,26 +70,27 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
+// Small & Less Sparkle Particles
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 4 + 2;
-    this.speedX = (Math.random() - 0.5) * 5;
-    this.speedY = (Math.random() - 0.5) * 5;
+    this.size = Math.random() * 2 + 1; // Size chota kiya
+    this.speedX = (Math.random() - 0.5) * 3;
+    this.speedY = (Math.random() - 0.5) * 3;
     this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
     this.life = 1;
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.life -= 0.04;
+    this.life -= 0.05;
   }
   draw() {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 6;
     ctx.shadowColor = '#ffffff';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -100,7 +101,9 @@ class Spark {
 
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
-  for (let i = 0; i < 2; i++) {
+  
+  // Sparkle dots ki quantity kam kar di hai
+  if (Math.random() > 0.5) {
     particles.push(new Spark(x, y));
   }
 }
@@ -115,38 +118,35 @@ function animateTrail() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
   
-  points = points.filter(p => now - p.time < 180);
+  points = points.filter(p => now - p.time < 130);
 
-  if (points.length > 2) {
+  if (points.length > 1) {
     ctx.save();
-    ctx.lineCap = 'round';
+    ctx.lineCap = 'butt';
     ctx.lineJoin = 'round';
 
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i < points.length - 1; i++) {
-      const xc = (points[i].x + points[i + 1].x) / 2;
-      const yc = (points[i].y + points[i + 1].y) / 2;
-      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
-    }
-    ctx.strokeStyle = '#ff2a75';
-    ctx.lineWidth = 10;
-    ctx.shadowBlur = 18;
-    ctx.shadowColor = '#ff65a3';
-    ctx.stroke();
+    // Triangle / Tapered Blade Shape Effect
+    for (let i = 0; i < points.length - 1; i++) {
+      const progress = i / points.length; 
+      
+      // Outer Glow Line (Patli aur sharp)
+      ctx.beginPath();
+      ctx.moveTo(points[i].x, points[i].y);
+      ctx.lineTo(points[i + 1].x, points[i + 1].y);
+      ctx.strokeStyle = '#ff2a75';
+      ctx.lineWidth = progress * 4 + 1;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = '#ff65a3';
+      ctx.stroke();
 
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i < points.length - 1; i++) {
-      const xc = (points[i].x + points[i + 1].x) / 2;
-      const yc = (points[i].y + points[i + 1].y) / 2;
-      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+      // Inner White Core (Ultra Thin)
+      ctx.beginPath();
+      ctx.moveTo(points[i].x, points[i].y);
+      ctx.lineTo(points[i + 1].x, points[i + 1].y);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = progress * 2 + 0.5;
+      ctx.stroke();
     }
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 4;
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = '#ffffff';
-    ctx.stroke();
 
     ctx.restore();
   }
