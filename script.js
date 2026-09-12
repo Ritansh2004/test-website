@@ -70,29 +70,29 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
+// Bolder & Brighter Sparkle Particles
 class Spark {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 2.5 + 1;
-    this.speedX = (Math.random() - 0.5) * 3;
-    this.speedY = (Math.random() - 0.5) * 3;
-    // Bright Golden & Cyan Mix Colors for high visibility
-    const colors = ['#fff176', '#ffd54f', '#80deea', '#ffffff'];
+    this.size = Math.random() * 4 + 2.5; // Bigger size for bold look
+    this.speedX = (Math.random() - 0.5) * 3.5;
+    this.speedY = (Math.random() - 0.5) * 3.5;
+    const colors = ['#ffe082', '#ffd54f', '#00e5ff', '#ffffff'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
     this.life = 1;
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    this.life -= 0.04;
+    this.life -= 0.035;
   }
   draw() {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 12; // High glow intensity
+    ctx.shadowColor = '#ffffff';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
