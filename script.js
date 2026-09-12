@@ -38,18 +38,28 @@ function firstInteraction() {
 
   clickCount++;
 
-  if (clickCount === 1) {
-    character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnZxaDdxNW9vYzRmMjdveGFndnR6NWtqZmt0NWFpOHY5MGtqczB3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"; 
-    greeting.innerText = "Oh, hi! You clicked. 😊";
-    btn.innerText = "Really? ✨";
-  } else if (clickCount === 2) {
-    character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTNpdTZ4cDh5bGN6NG9vNWNldzU3c3h2NXlndG5mZ3ZzcWhua256OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41Yfxk5398UvNOiY/giphy.gif";
-    greeting.innerText = "Yes, I mean it! 💖";
-    btn.innerText = "Okay, what's next? 😉";
-  } else {
-    greeting.innerText = "This is live now! 🎉";
-    btn.style.display = 'none';
-  }
+  // Fade out effect
+  character.style.opacity = 0;
+  greeting.style.opacity = 0;
+
+  setTimeout(() => {
+    if (clickCount === 1) {
+      character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnZxaDdxNW9vYzRmMjdveGFndnR6NWtqZmt0NWFpOHY5MGtqczB3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"; 
+      greeting.innerText = "Oh, hi! You clicked. 😊";
+      btn.innerText = "Really? ✨";
+    } else if (clickCount === 2) {
+      character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTNpdTZ4cDh5bGN6NG9vNWNldzU3c3h2NXlndG5mZ3ZzcWhua256OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41Yfxk5398UvNOiY/giphy.gif";
+      greeting.innerText = "Yes, I mean it! 💖";
+      btn.innerText = "Okay, what's next? 😉";
+    } else {
+      greeting.innerText = "This is live now! 🎉";
+      btn.style.display = 'none';
+    }
+
+    // Fade in effect
+    character.style.opacity = 1;
+    greeting.style.opacity = 1;
+  }, 200);
 }
 
 /* Canvas Trail */
