@@ -54,8 +54,9 @@ body {
 #live-character {
   width: 160px;
   height: 160px;
-  object-fit: contain;
-  border-radius: 15px;
+  object-fit: cover;
+  border-radius: 20px; /* Corners round karne ke liye */
+  overflow: hidden;    /* Rounded corners ke bahar content na nikle */
 }
 
 h1 {
