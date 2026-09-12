@@ -34,7 +34,6 @@ function toggleAudio() {
 function firstInteraction() {
   const character = document.getElementById('live-character');
   const greeting = document.getElementById('greeting');
-  const message = document.getElementById('message');
   const btn = document.getElementById('main-btn');
 
   clickCount++;
@@ -42,21 +41,18 @@ function firstInteraction() {
   if (clickCount === 1) {
     character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnZxaDdxNW9vYzRmMjdveGFndnR6NWtqZmt0NWFpOHY5MGtqczB3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"; 
     greeting.innerText = "Oh, hi! You clicked. 😊";
-    message.innerText = "You know, seeing you smile makes my entire day so much better.";
     btn.innerText = "Really? ✨";
   } else if (clickCount === 2) {
     character.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTNpdTZ4cDh5bGN6NG9vNWNldzU3c3h2NXlndG5mZ3ZzcWhua256OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l41Yfxk5398UvNOiY/giphy.gif";
     greeting.innerText = "Yes, I mean it! 💖";
-    message.innerText = "I made this whole website just to tell you how amazing I think you are.";
     btn.innerText = "Okay, what's next? 😉";
   } else {
     greeting.innerText = "This is live now! 🎉";
-    message.innerText = "Aap isse check kar rahe ho directly mere unique address par!";
     btn.style.display = 'none';
   }
 }
 
-// Canvas Setup
+// Canvas Trail
 const canvas = document.getElementById('trail-canvas');
 const ctx = canvas.getContext('2d');
 
@@ -70,7 +66,6 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Small, High Quantity & Full Spectrum Multi-Color Stars
 class Spark {
   constructor(x, y) {
     this.x = x;
@@ -78,8 +73,6 @@ class Spark {
     this.size = Math.random() * 1.6 + 1.2;
     this.speedX = (Math.random() - 0.5) * 3;
     this.speedY = (Math.random() - 0.5) * 3;
-    
-    // Random Dynamic Colors (0° to 360° Hue - Every Color in existence)
     this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
     this.life = 1;
     this.rotation = Math.random() * Math.PI;
@@ -112,8 +105,6 @@ class Spark {
 
 function addPoint(x, y) {
   points.push({ x, y, time: Date.now() });
-  
-  // Increased particle quantity per move
   for (let i = 0; i < 3; i++) {
     particles.push(new Spark(x, y));
   }
@@ -176,8 +167,8 @@ function animateTrail() {
 
 animateTrail();
 
-// JS Logic
-const phrases = [
+// Multi-Text Rotating & Deleting Effect Logic
+let phrases = [
   "You make my world so much brighter! ✨",
   "I made this special page for you 💖",
   "Keep smiling always! 😊",
@@ -187,10 +178,12 @@ const phrases = [
 let pIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
-const speed = 100;
-const target = document.getElementById("typewriter");
+const speed = 90;
 
 function typeEffect() {
+  const target = document.getElementById("typewriter");
+  if (!target) return;
+
   const currentPhrase = phrases[pIndex];
   
   if (isDeleting) {
@@ -201,10 +194,10 @@ function typeEffect() {
     charIndex++;
   }
 
-  let delay = isDeleting ? 50 : speed;
+  let delay = isDeleting ? 45 : speed;
 
   if (!isDeleting && charIndex === currentPhrase.length) {
-    delay = 1800; // Pause at end of sentence
+    delay = 1800;
     isDeleting = true;
   } else if (isDeleting && charIndex === 0) {
     isDeleting = false;
@@ -213,6 +206,16 @@ function typeEffect() {
   }
 
   setTimeout(typeEffect, delay);
+}
+
+// Testing Feature: Add phrase dynamically from test input
+function addCustomPhrase() {
+  const input = document.getElementById("custom-text-input");
+  if (input.value.trim() !== "") {
+    phrases.push(input.value.trim());
+    input.value = "";
+    alert("New phrase added to rotation loop! 🚀");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", typeEffect);

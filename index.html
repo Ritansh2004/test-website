@@ -8,9 +8,6 @@
 </head>
 <body>
 
-<!-- HTML Structure -->
-<p class="type-wrap">Hey! <span id="typewriter" class="typed-text"></span></p>
-
   <!-- Canvas for Fruit Ninja Trail -->
   <canvas id="trail-canvas"></canvas>
 
@@ -38,9 +35,22 @@
     </div>
     
     <h1 id="greeting">Hi there! 👋</h1>
-    <p id="message">I was thinking about you and decided to make something simple, just to make you smile.</p>
+    
+    <!-- Dynamic Typewriter Display Area -->
+    <div class="type-wrap">
+      <span id="typewriter" class="typed-text"></span>
+    </div>
+
+    <!-- Hidden Static Paragraph kept for interaction fallback -->
+    <p id="message" style="display: none;"></p>
     
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
+
+    <!-- Testing Box Section -->
+    <div class="test-box-container">
+      <input type="text" id="custom-text-input" placeholder="Type new phrase to test...">
+      <button onclick="addCustomPhrase()">Add Text 🚀</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
