@@ -1,16 +1,40 @@
 let clickCount = 0;
+let isMuted = false;
+
+function startExperience() {
+  const music = document.getElementById('bg-music');
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const muteBtn = document.getElementById('mute-btn');
+
+  // Play audio on Enter click
+  music.play().catch(e => console.log("Audio play error:", e));
+
+  // Hide welcome screen and show mute button
+  welcomeScreen.style.opacity = '0';
+  welcomeScreen.style.visibility = 'hidden';
+  muteBtn.style.display = 'block';
+}
+
+function toggleAudio() {
+  const music = document.getElementById('bg-music');
+  const muteBtn = document.getElementById('mute-btn');
+
+  if (isMuted) {
+    music.muted = false;
+    muteBtn.innerText = '🔊';
+    isMuted = false;
+  } else {
+    music.muted = true;
+    muteBtn.innerText = '🔇';
+    isMuted = true;
+  }
+}
 
 function firstInteraction() {
-  const music = document.getElementById('bg-music');
   const character = document.getElementById('live-character');
   const greeting = document.getElementById('greeting');
   const message = document.getElementById('message');
   const btn = document.getElementById('main-btn');
-
-  // Pehle click par music play ho jayega
-  if (clickCount === 0) {
-    music.play().catch(e => console.log("Audio play blocked by browser:", e));
-  }
 
   clickCount++;
 

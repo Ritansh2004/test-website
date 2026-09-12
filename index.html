@@ -8,17 +8,30 @@
 </head>
 <body>
 
-  <div class="card">
-    <audio id="bg-music" loop>
-      <source src="romantic-sound.mp3" type="audio/mpeg">
-    </audio>
+  <!-- Landing Overlay Screen -->
+  <div id="welcome-screen">
+    <div class="welcome-box">
+      <h2>Welcome 💖</h2>
+      <p>Click below to enter your surprise</p>
+      <button id="enter-btn" onclick="startExperience()">Enter ✨</button>
+    </div>
+  </div>
 
+  <!-- Audio Element -->
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Mute/Unmute Toggle Button -->
+  <button id="mute-btn" onclick="toggleAudio()" style="display: none;">🔊</button>
+
+  <!-- Main Card Container -->
+  <div class="card">
     <div class="character-container">
       <img id="live-character" src="scarlet-jump.gif" alt="Cute Character">
     </div>
     
     <h1 id="greeting">Hi there! 👋</h1>
-    
     <p id="message">I was thinking about you and decided to make something simple, just to make you smile.</p>
     
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
