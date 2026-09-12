@@ -1,10 +1,16 @@
 let clickCount = 0;
 
 function firstInteraction() {
+  const music = document.getElementById('bg-music');
   const character = document.getElementById('live-character');
   const greeting = document.getElementById('greeting');
   const message = document.getElementById('message');
   const btn = document.getElementById('main-btn');
+
+  // Pehle click par music play ho jayega
+  if (clickCount === 0) {
+    music.play().catch(e => console.log("Audio play blocked by browser:", e));
+  }
 
   clickCount++;
 
