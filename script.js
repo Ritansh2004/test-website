@@ -77,7 +77,9 @@ class Spark {
     this.size = Math.random() * 2.5 + 1;
     this.speedX = (Math.random() - 0.5) * 3;
     this.speedY = (Math.random() - 0.5) * 3;
-    this.color = `hsl(${Math.random() * 60 + 330}, 100%, 75%)`;
+    // Bright Golden & Cyan Mix Colors for high visibility
+    const colors = ['#fff176', '#ffd54f', '#80deea', '#ffffff'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
     this.life = 1;
   }
   update() {
@@ -89,8 +91,8 @@ class Spark {
     ctx.save();
     ctx.globalAlpha = this.life;
     ctx.fillStyle = this.color;
-    ctx.shadowBlur = 6;
-    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
@@ -120,7 +122,6 @@ function animateTrail() {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Smooth Single Path Rendering
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
 
@@ -130,14 +131,12 @@ function animateTrail() {
       ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
     }
 
-    // Outer Glow Blade (Uniform Smooth Taper)
     ctx.strokeStyle = '#ff2a75';
     ctx.lineWidth = 6;
     ctx.shadowBlur = 10;
     ctx.shadowColor = '#ff65a3';
     ctx.stroke();
 
-    // Inner White Core
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (let i = 1; i < points.length - 1; i++) {
