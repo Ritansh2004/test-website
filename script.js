@@ -175,3 +175,44 @@ function animateTrail() {
 }
 
 animateTrail();
+
+// JS Logic
+const phrases = [
+  "You make my world so much brighter! ✨",
+  "I made this special page for you 💖",
+  "Keep smiling always! 😊",
+  "Are you ready for the magic? 🎉"
+];
+
+let pIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const speed = 100;
+const target = document.getElementById("typewriter");
+
+function typeEffect() {
+  const currentPhrase = phrases[pIndex];
+  
+  if (isDeleting) {
+    target.textContent = currentPhrase.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    target.textContent = currentPhrase.substring(0, charIndex + 1);
+    charIndex++;
+  }
+
+  let delay = isDeleting ? 50 : speed;
+
+  if (!isDeleting && charIndex === currentPhrase.length) {
+    delay = 1800; // Pause at end of sentence
+    isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    pIndex = (pIndex + 1) % phrases.length;
+    delay = 400;
+  }
+
+  setTimeout(typeEffect, delay);
+}
+
+document.addEventListener("DOMContentLoaded", typeEffect);
