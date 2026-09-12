@@ -73,7 +73,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Floating Trail Canvas */
+/* Canvas overlay setup - Background level */
 #trail-canvas {
   position: fixed;
   top: 0;
@@ -81,7 +81,22 @@ button:hover {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 1; /* Background par rakhne ke liye */
+}
+
+/* Main Card Container - Foreground level */
+.card {
+  background: #ffffff;
+  padding: 30px 20px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Card ko canvas ke upar dikhane ke liye */
 }
 
 /* Welcome Screen Overlay */
