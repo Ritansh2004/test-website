@@ -14,7 +14,7 @@
   <!-- Landing Overlay Screen -->
   <div id="welcome-screen">
     <div class="welcome-box">
-      <h2>Welcome 💖</h2>
+      <h2>Welcome 💌</h2>
       <p><b>Click below to enter your surprise</b></p>
       <button id="enter-btn" onclick="startExperience()">Enter ✨</button>
     </div>
@@ -29,12 +29,12 @@
   <button id="mute-btn" onclick="toggleAudio()" style="display: none;">🔊</button>
 
   <!-- Main Card Container -->
-  <div class="card">
+  <div class="card" id="main-card">
     <div class="character-container">
       <img id="live-character" src="scarlet-jump.gif" alt="Cute Character">
     </div>
     
-    <h1 id="greeting">Hi there! 👋</h1>
+    <h1 id="greeting">Hi there! 😊</h1>
     
     <!-- 1st Main Default Typewriter Display Area -->
     <div class="type-wrap">
@@ -45,16 +45,29 @@
     <div id="custom-type-wrap" class="type-wrap custom-wrap" style="display: none;">
       <span id="custom-typewriter" class="typed-text custom-text"></span>
     </div>
-
-    <!-- Hidden Static Paragraph -->
-    <p id="message" style="display: none;"></p>
     
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
 
     <!-- Testing Box Section -->
     <div class="test-box-container">
       <input type="text" id="custom-text-input" placeholder="Type new phrase to test...">
-      <button onclick="addCustomPhrase()">Add Text 🚀</button>
+      <button onclick="addCustomPhrase()">Add Text ✍️</button>
+    </div>
+  </div>
+
+  <!-- Secret Love Letter / Proposal Overlay (Hidden Initially) -->
+  <div id="proposal-screen" class="proposal-overlay" style="display: none;">
+    <div class="letter-box">
+      <div class="letter-header">💌 A Secret Message For You 💌</div>
+      <p class="letter-text">
+        From the moment you came into my life, everything became so bright and beautiful. You are my favorite thought and my sweetest smile. <br><br>
+        So, I wanted to ask you something special... <br><br>
+        <b>Will you be mine forever? 💖</b>
+      </p>
+      <div class="proposal-buttons">
+        <button id="yes-btn" onclick="acceptProposal()">Yes! A thousand times Yes! 🥰</button>
+        <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 🙈</button>
+      </div>
     </div>
   </div>
 

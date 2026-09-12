@@ -247,3 +247,71 @@ button:active {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   z-index: 100;
 }
+
+/* Secret Proposal Letter Overlay Styles */
+.proposal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.letter-box {
+  background: #fffdf9;
+  padding: 35px 25px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border: 2px dashed #ff4b2b;
+  position: relative;
+  transform: scale(0.9);
+  animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.letter-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff4b2b;
+  margin-bottom: 15px;
+}
+
+.letter-text {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.proposal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+#no-btn {
+  background: linear-gradient(135deg, #bdc3c7, #2c3e50);
+  position: relative;
+  transition: 0.1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUp {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
