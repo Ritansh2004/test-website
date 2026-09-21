@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- Canvas for Trail -->
+  <!-- Canvas for Fruit Ninja Trail -->
   <canvas id="trail-canvas"></canvas>
 
   <!-- Landing Overlay Screen -->
@@ -36,29 +36,41 @@
     
     <h1 id="greeting">Hi there! 😊</h1>
     
-    <!-- Typewriter Display -->
+    <!-- 1st Main Default Typewriter Display Area -->
     <div class="type-wrap">
       <span id="typewriter" class="typed-text"></span>
     </div>
 
+    <!-- 2nd Synced Custom Typewriter Display Area -->
+    <div id="custom-type-wrap" class="type-wrap custom-wrap" style="display: none;">
+      <span id="custom-typewriter" class="typed-text custom-text"></span>
+    </div>
+    
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
+
+    <!-- Testing Box Section -->
+    <div class="test-box-container">
+      <input type="text" id="custom-text-input" placeholder="Type new phrase to test...">
+      <button onclick="addCustomPhrase()">Add Text ✍️</button>
+    </div>
   </div>
 
-  <!-- 2nd Page: Love Locker Screen (Calendar Based) -->
+  <!-- Secret Love Letter / Proposal Overlay (Hidden Initially) -->
   <div id="proposal-screen" class="proposal-overlay" style="display: none;">
     <div class="letter-box">
+      <!-- Top Right Close Button -->
       <button class="close-btn" onclick="closeProposal()">×</button>
       
-      <div class="letter-header" style="font-size: 1.5rem; font-weight: 600; color: #ff4b2b; margin-bottom: 10px;">🔒 Love Locker</div>
-      <p class="letter-text" style="font-size: 1.1rem; color: #444; margin-bottom: 20px;">
-        enter ur birth date
+      <div class="letter-header">💌 A Secret Message For You 💌</div>
+      <p class="letter-text">
+        From the moment you came into my life, everything became so bright and beautiful. You are my favorite thought and my sweetest smile. <br><br>
+        So, I wanted to ask you something special... <br><br>
+        <b>Will you be mine forever? 💖</b>
       </p>
-      
-      <div class="proposal-buttons" style="flex-direction: column; gap: 15px;">
-        <input type="date" id="birth-date-input" class="calendar-input">
-        <button id="unlock-btn" onclick="unlockLocker()">Unlock 💖</button>
+      <div class="proposal-buttons">
+        <button id="yes-btn" onclick="acceptProposal()">Yes! A thousand times Yes! 🥰</button>
+        <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 🙈</button>
       </div>
-      <p id="locker-msg" style="margin-top: 15px; font-weight: bold;"></p>
     </div>
   </div>
 
