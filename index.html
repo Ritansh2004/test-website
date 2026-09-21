@@ -8,10 +8,9 @@
 </head>
 <body>
 
-  <!-- Canvas for Fruit Ninja Trail -->
   <canvas id="trail-canvas"></canvas>
 
-  <!-- Landing Overlay Screen -->
+  <!-- Welcome -->
   <div id="welcome-screen">
     <div class="welcome-box">
       <h2>Welcome 💌</h2>
@@ -20,24 +19,22 @@
     </div>
   </div>
 
-  <!-- Audio Element -->
   <audio id="bg-music" loop>
     <source src="romantic-sound.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Mute/Unmute Toggle Button -->
   <button id="mute-btn" onclick="toggleAudio()" style="display: none;">🔊</button>
 
-  <!-- Date of Birth Locker -->
-  <div class="card locker-card" id="locker-screen">
-    <div class="locker-icon">🔐</div>
-    <h1>Something Special 💖</h1>
-    <p class="locker-subtitle">Enter Website Admin Date of Birth</p>
+  <!-- User DOB Screen -->
+  <div class="card locker-card" id="user-dob-screen" style="display: none;">
+    <div class="locker-icon">💝</div>
+    <h1>Enter Your Date of Birth</h1>
+    <p class="locker-subtitle">Tell me your birthday first... then I'll find some questions for you. ✨</p>
     <div class="password-wrap dob-wrap">
-      <input type="text" id="dob-input" inputmode="numeric" maxlength="5" placeholder="DD/MM" aria-label="Date of birth" oninput="formatDob(this)" onkeydown="handleDobKey(event)">
+      <input type="date" id="user-dob-input" aria-label="Your date of birth" onchange="clearUserDobMessage()" onkeydown="handleUserDobKey(event)">
     </div>
-    <button id="unlock-btn" onclick="checkPassword()">Continue 💖</button>
-    <p id="password-message" class="password-message"></p>
+    <button id="user-dob-btn" onclick="submitUserDob()">Continue 💖</button>
+    <p id="user-dob-message" class="password-message"></p>
   </div>
 
   <!-- About You Quiz -->
@@ -49,20 +46,33 @@
     <p id="quiz-message" class="quiz-message"></p>
   </div>
 
-  <!-- Post-Quiz Locker -->
+  <!-- Result -->
+  <div class="card result-card" id="result-screen" style="display: none;">
+    <div class="quiz-badge">💖</div>
+    <h1>Your Answers</h1>
+    <p class="result-subtitle">Here's everything you chose. No right or wrong here — I just wanted to know you a little better. 🥰</p>
+    <div id="result-list" class="result-list"></div>
+    <div class="result-actions">
+      <button id="secret-locker-btn" onclick="openSecretLocker()">You wanna open secret locker? 🔐</button>
+    </div>
+  </div>
+
+  <!-- Admin DOB Locker (Optional) -->
   <div class="card final-locker-card" id="final-locker" style="display: none;">
     <div class="locker-icon">🔐</div>
     <h1>One Last Secret 💖</h1>
-    <p class="locker-subtitle">You made it this far... unlock the final surprise.</p>
+    <p class="locker-subtitle">Enter Website Admin Date of Birth</p>
+    <div class="password-wrap dob-wrap">
+      <input type="date" id="admin-dob-input" aria-label="Website Admin date of birth" onchange="clearAdminDobMessage()" onkeydown="handleAdminDobKey(event)">
+    </div>
     <button id="final-unlock-btn" onclick="unlockFinalLocker()">Unlock Surprise 🔓</button>
+    <p id="admin-dob-message" class="password-message"></p>
   </div>
 
-  <!-- Secret Love Letter / Proposal Overlay (Hidden Initially) -->
+  <!-- Secret Love Letter / Proposal Overlay -->
   <div id="proposal-screen" class="proposal-overlay" style="display: none;">
     <div class="letter-box">
-      <!-- Top Right Close Button -->
       <button class="close-btn" onclick="closeProposal()">×</button>
-      
       <div class="letter-header">💌 A Secret Message For You 💌</div>
       <p class="letter-text">
         From the moment you came into my life, everything became so bright and beautiful. You are my favorite thought and my sweetest smile. <br><br>
