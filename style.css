@@ -170,6 +170,13 @@ button:active {
 .password-wrap { width:100%; position:relative; margin:5px 0 10px; }
 .password-wrap input { width:100%; padding:12px 48px 12px 14px; border:2px solid #eee; border-radius:14px; outline:none; font-family:inherit; font-size:.9rem; transition:border-color .25s,box-shadow .25s; }
 .password-wrap input:focus { border-color:#ff758c; box-shadow:0 0 0 4px rgba(255,117,140,.12); }
+.dob-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: #888;
+}
+
 .dob-wrap input[type="date"] {
   width: 100%;
   padding: 12px 14px;

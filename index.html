@@ -32,10 +32,11 @@
   <div class="card locker-card" id="locker-screen">
     <div class="locker-icon">🔐</div>
     <h1>Something Special 💖</h1>
-    <p class="locker-subtitle">Enter your date of birth to unlock your surprise.</p>
+    <p class="locker-subtitle">Choose your date from the calendar or enter it using the keyboard.</p>
     <div class="password-wrap dob-wrap">
-      <input type="date" id="dob-input" aria-label="Date of birth" onchange="clearDobMessage()">
+      <input type="date" id="dob-input" aria-label="Date of birth" onchange="clearDobMessage()" onkeydown="handleDobKey(event)">
     </div>
+    <span class="dob-hint">Calendar 📅 or keyboard ⌨️</span>
     <button id="unlock-btn" onclick="checkPassword()">Unlock 🔓</button>
     <p id="password-message" class="password-message"></p>
   </div>

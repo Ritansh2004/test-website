@@ -28,6 +28,12 @@ function checkPassword() {
   }
 }
 
+function handleDobKey(event) {
+  if (event.key === "Enter") {
+    checkPassword();
+  }
+}
+
 function clearDobMessage() {
   const message = document.getElementById("password-message");
   if (message) {
