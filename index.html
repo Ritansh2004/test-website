@@ -32,10 +32,9 @@
   <div class="card locker-card" id="locker-screen">
     <div class="locker-icon">🔐</div>
     <h1>Something Special 💖</h1>
-    <p class="locker-subtitle">Enter the secret password to unlock your surprise.</p>
-    <div class="password-wrap">
-      <input type="password" id="password-input" placeholder="Enter password..." autocomplete="off" onkeydown="handlePasswordKey(event)">
-      <button class="password-toggle" type="button" onclick="togglePassword()">👁️</button>
+    <p class="locker-subtitle">Enter your date of birth to unlock your surprise.</p>
+    <div class="password-wrap dob-wrap">
+      <input type="date" id="dob-input" aria-label="Date of birth" onchange="clearDobMessage()">
     </div>
     <button id="unlock-btn" onclick="checkPassword()">Unlock 🔓</button>
     <p id="password-message" class="password-message"></p>

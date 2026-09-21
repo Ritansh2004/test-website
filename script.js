@@ -1,18 +1,40 @@
-// Password Locker
-const SECRET_PASSWORD = "1234"; // Change this password here.
+// Date of Birth Locker
+const SECRET_DOB = "2000-01-01"; // Change this to the correct DOB (YYYY-MM-DD).
+
 function checkPassword() {
-  const input=document.getElementById("password-input"), message=document.getElementById("password-message");
-  const locker=document.getElementById("locker-screen"), mainCard=document.getElementById("main-card");
-  if(input.value===SECRET_PASSWORD){
-    message.textContent="Unlocked! 💖"; message.className="password-message success";
-    setTimeout(()=>{locker.style.display="none"; mainCard.style.display="flex";},450);
+  const input = document.getElementById("dob-input");
+  const message = document.getElementById("password-message");
+  const locker = document.getElementById("locker-screen");
+  const mainCard = document.getElementById("main-card");
+  const dob = input.value;
+
+  if (!dob) {
+    message.textContent = "Please select your date of birth 📅";
+    message.className = "password-message error";
+    return;
+  }
+
+  if (dob === SECRET_DOB) {
+    message.textContent = "Unlocked! 💖";
+    message.className = "password-message success";
+    setTimeout(() => {
+      locker.style.display = "none";
+      mainCard.style.display = "flex";
+    }, 450);
   } else {
-    message.textContent="Wrong password. Try again! 🔒"; message.className="password-message error";
-    input.value=""; input.focus();
+    message.textContent = "Wrong date of birth. Try again! 🔒";
+    message.className = "password-message error";
+    input.value = "";
   }
 }
-function handlePasswordKey(event){ if(event.key==="Enter") checkPassword(); }
-function togglePassword(){ const input=document.getElementById("password-input"); input.type=input.type==="password"?"text":"password"; }
+
+function clearDobMessage() {
+  const message = document.getElementById("password-message");
+  if (message) {
+    message.textContent = "";
+    message.className = "password-message";
+  }
+}
 
 let clickCount = 0;
 let isMuted = false;
