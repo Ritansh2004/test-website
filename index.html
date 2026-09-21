@@ -28,27 +28,30 @@
   <!-- Mute/Unmute Toggle Button -->
   <button id="mute-btn" onclick="toggleAudio()" style="display: none;">🔊</button>
 
-  <!-- Main Card Container -->
-  <div class="card" id="main-card">
+  <!-- Password Locker -->
+  <div class="card locker-card" id="locker-screen">
+    <div class="locker-icon">🔐</div>
+    <h1>Something Special 💖</h1>
+    <p class="locker-subtitle">Enter the secret password to unlock your surprise.</p>
+    <div class="password-wrap">
+      <input type="password" id="password-input" placeholder="Enter password..." autocomplete="off" onkeydown="handlePasswordKey(event)">
+      <button class="password-toggle" type="button" onclick="togglePassword()">👁️</button>
+    </div>
+    <button id="unlock-btn" onclick="checkPassword()">Unlock 🔓</button>
+    <p id="password-message" class="password-message"></p>
+  </div>
+
+  <!-- Protected Second Page -->
+  <div class="card protected-page" id="main-card" style="display: none;">
     <div class="character-container">
       <img id="live-character" src="scarlet-jump.gif" alt="Cute Character">
     </div>
-    
     <h1 id="greeting">Hi there! 😊</h1>
-    
-    <!-- 1st Main Default Typewriter Display Area -->
-    <div class="type-wrap">
-      <span id="typewriter" class="typed-text"></span>
-    </div>
-
-    <!-- 2nd Synced Custom Typewriter Display Area -->
+    <div class="type-wrap"><span id="typewriter" class="typed-text"></span></div>
     <div id="custom-type-wrap" class="type-wrap custom-wrap" style="display: none;">
       <span id="custom-typewriter" class="typed-text custom-text"></span>
     </div>
-    
     <button id="main-btn" onclick="firstInteraction()">Click Me! ✨</button>
-
-    <!-- Testing Box Section -->
     <div class="test-box-container">
       <input type="text" id="custom-text-input" placeholder="Type new phrase to test...">
       <button onclick="addCustomPhrase()">Add Text ✍️</button>

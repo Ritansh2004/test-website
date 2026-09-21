@@ -1,3 +1,19 @@
+// Password Locker
+const SECRET_PASSWORD = "1234"; // Change this password here.
+function checkPassword() {
+  const input=document.getElementById("password-input"), message=document.getElementById("password-message");
+  const locker=document.getElementById("locker-screen"), mainCard=document.getElementById("main-card");
+  if(input.value===SECRET_PASSWORD){
+    message.textContent="Unlocked! 💖"; message.className="password-message success";
+    setTimeout(()=>{locker.style.display="none"; mainCard.style.display="flex";},450);
+  } else {
+    message.textContent="Wrong password. Try again! 🔒"; message.className="password-message error";
+    input.value=""; input.focus();
+  }
+}
+function handlePasswordKey(event){ if(event.key==="Enter") checkPassword(); }
+function togglePassword(){ const input=document.getElementById("password-input"); input.type=input.type==="password"?"text":"password"; }
+
 let clickCount = 0;
 let isMuted = false;
 
