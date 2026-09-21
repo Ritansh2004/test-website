@@ -170,52 +170,20 @@ button:active {
 .password-wrap { width:100%; position:relative; margin:5px 0 10px; }
 .password-wrap input { width:100%; padding:12px 48px 12px 14px; border:2px solid #eee; border-radius:14px; outline:none; font-family:inherit; font-size:.9rem; transition:border-color .25s,box-shadow .25s; }
 .password-wrap input:focus { border-color:#ff758c; box-shadow:0 0 0 4px rgba(255,117,140,.12); }
-.dob-hint {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.72rem;
-  color: #888;
-}
 
-.dob-wrap input[type="date"] {
-  width: 100%;
-  padding: 12px 14px;
-  color: #444;
-  background: #fff;
-  cursor: pointer;
-}
 
-.dob-wrap input[type="date"]::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-}
+
+
+
 
 @keyframes lockFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
 
 /* Testing Input Box */
-.test-box-container {
-  margin-top: 15px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
-.test-box-container input {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  outline: none;
-  font-size: 0.85rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
 
-.test-box-container button {
-  padding: 8px 15px;
-  font-size: 0.85rem;
-  border-radius: 12px;
+.final-locker-card {
+  min-height: 330px;
 }
 
 #welcome-screen {
