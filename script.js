@@ -1,36 +1,49 @@
-// Date of Birth Locker
-const SECRET_DOB = "2000-01-01"; // Change this to the correct DOB (YYYY-MM-DD).
+// Date of Birth Locker + About You Quiz
+const SECRET_DOB = "01/01"; // Change this to the correct DOB (DD/MM).
 
-function checkPassword() {
-  const input = document.getElementById("dob-input");
-  const message = document.getElementById("password-message");
-  const locker = document.getElementById("locker-screen");
-  const mainCard = document.getElementById("main-card");
-  const dob = input.value;
+let enteredDob = "";
+let currentQuestion = 0;
 
-  if (!dob) {
-    message.textContent = "Please select your date of birth 📅";
-    message.className = "password-message error";
-    return;
-  }
-
-  if (dob === SECRET_DOB) {
-    message.textContent = "Unlocked! 💖";
-    message.className = "password-message success";
-    setTimeout(() => {
-      locker.style.display = "none";
-      mainCard.style.display = "flex";
-    }, 450);
-  } else {
-    message.textContent = "Wrong date of birth. Try again! 🔒";
-    message.className = "password-message error";
-    input.value = "";
-  }
+function formatDob(input) {
+  let value = input.value.replace(/\D/g, "").slice(0, 4);
+  if (value.length > 2) value = value.slice(0, 2) + "/" + value.slice(2);
+  input.value = value;
+  clearDobMessage();
 }
 
 function handleDobKey(event) {
   if (event.key === "Enter") {
     checkPassword();
+  }
+}
+
+function checkPassword() {
+  const input = document.getElementById("dob-input");
+  const message = document.getElementById("password-message");
+  const locker = document.getElementById("locker-screen");
+  const quiz = document.getElementById("quiz-screen");
+  const dob = input.value.trim();
+
+  if (!/^\d{2}\/\d{2}$/.test(dob)) {
+    message.textContent = "Please enter your DOB as DD/MM 💗";
+    message.className = "password-message error";
+    return;
+  }
+
+  if (dob === SECRET_DOB) {
+    enteredDob = dob;
+    message.textContent = "Unlocked! Let's see how well you know me 💖";
+    message.className = "password-message success";
+    setTimeout(() => {
+      locker.style.display = "none";
+      quiz.style.display = "flex";
+      currentQuestion = 0;
+      showQuestion();
+    }, 450);
+  } else {
+    message.textContent = "Wrong date of birth. Try again! 🔒";
+    message.className = "password-message error";
+    input.value = "";
   }
 }
 
@@ -40,6 +53,110 @@ function clearDobMessage() {
     message.textContent = "";
     message.className = "password-message";
   }
+}
+
+function specialDayForDob(dob) {
+  const day = dob.slice(0, 2);
+  const month = dob.slice(3, 5);
+  const key = `${day}/${month}`;
+  const specialDays = {
+    "01/01": { name: "New Year's Day", answer: "New Year's Day" },
+    "26/01": { name: "Republic Day", answer: "Republic Day" },
+    "14/02": { name: "Valentine's Day", answer: "Valentine's Day" },
+    "08/03": { name: "International Women's Day", answer: "International Women's Day" },
+    "01/05": { name: "May Day / Labour Day", answer: "May Day / Labour Day" },
+    "15/08": { name: "Independence Day", answer: "Independence Day" },
+    "05/09": { name: "Teachers' Day", answer: "Teachers' Day" },
+    "02/10": { name: "Gandhi Jayanti", answer: "Gandhi Jayanti" },
+    "14/11": { name: "Children's Day", answer: "Children's Day" },
+    "25/12": { name: "Christmas", answer: "Christmas" }
+  };
+  return specialDays[key] || null;
+}
+
+function getQuestions() {
+  const special = specialDayForDob(enteredDob);
+  const dayQuestion = special
+    ? `Tumhare janmdin par India mein kaunsa special day hota hai?`
+    : `Tumhare janmdin (${enteredDob}) ke aas-paas India mein kaunsa special occasion hota hai?`;
+
+  const dayAnswer = special ? special.answer : "It depends on the date";
+  const dayOptions = special
+    ? shuffleOptions([special.answer, "Republic Day", "Independence Day", "Children's Day"], special.answer)
+    : ["It depends on the date", "Republic Day", "Independence Day", "Children's Day"];
+
+  return [
+    { question: dayQuestion, options: dayOptions, answer: dayAnswer },
+    { question: "Agar hum dono ek romantic date par jaayein, tum kya choose karoge? 💕", options: ["Candlelight dinner 🕯️", "Long drive 🌙", "Beach walk 🌊", "Movie night 🎬"], answer: "Candlelight dinner 🕯️" },
+    { question: "Mere liye sabse cute surprise kya ho sakta hai? 🎁", options: ["Handwritten letter 💌", "Flowers 🌹", "Chocolate 🍫", "Surprise visit 🥰"], answer: "Handwritten letter 💌" },
+    { question: "Agar main tumhe ek special message bheju, tum kya karoge? 💖", options: ["Smile 😊", "Blush 🙈", "Reply instantly 💬", "All of these 💕"], answer: "All of these 💕" },
+    { question: "Perfect romantic evening tumhare liye kya hai? ✨", options: ["Talking for hours 💬", "Stargazing 🌌", "Music together 🎶", "All of these 💖"], answer: "All of these 💖" }
+  ];
+}
+
+function shuffleOptions(options, correct) {
+  const shuffled = [...options].sort(() => Math.random() - 0.5);
+  if (!shuffled.includes(correct)) shuffled[0] = correct;
+  return shuffled;
+}
+
+function showQuestion() {
+  const questions = getQuestions();
+  const q = questions[currentQuestion];
+  document.getElementById("quiz-progress").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+  document.getElementById("quiz-question").textContent = q.question;
+  const optionsWrap = document.getElementById("quiz-options");
+  const message = document.getElementById("quiz-message");
+  message.textContent = "";
+  optionsWrap.innerHTML = "";
+
+  q.options.forEach(option => {
+    const button = document.createElement("button");
+    button.className = "quiz-option";
+    button.textContent = option;
+    button.onclick = () => answerQuestion(option, q.answer);
+    optionsWrap.appendChild(button);
+  });
+}
+
+function answerQuestion(selected, correct) {
+  const message = document.getElementById("quiz-message");
+  const buttons = document.querySelectorAll(".quiz-option");
+
+  if (selected === correct) {
+    message.textContent = "Correct! 💖";
+    message.className = "quiz-message success";
+    buttons.forEach(button => button.disabled = true);
+    setTimeout(() => {
+      currentQuestion++;
+      if (currentQuestion < getQuestions().length) {
+        showQuestion();
+      } else {
+        finishQuiz();
+      }
+    }, 650);
+  } else {
+    message.textContent = "Oops! Try again 😄";
+    message.className = "quiz-message error";
+  }
+}
+
+function finishQuiz() {
+  const quiz = document.getElementById("quiz-screen");
+  const mainCard = document.getElementById("main-card");
+  quiz.innerHTML = `
+    <div class="quiz-badge">💖</div>
+    <h1>You know me pretty well! 🥰</h1>
+    <p class="quiz-subtitle">But there is still one more little surprise waiting for you...</p>
+    <button onclick="openMainSurprise()">Open My Surprise 💌</button>
+  `;
+  quiz.style.display = "flex";
+  mainCard.style.display = "none";
+}
+
+function openMainSurprise() {
+  document.getElementById("quiz-screen").style.display = "none";
+  document.getElementById("main-card").style.display = "flex";
 }
 
 let clickCount = 0;

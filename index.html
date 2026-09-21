@@ -28,17 +28,25 @@
   <!-- Mute/Unmute Toggle Button -->
   <button id="mute-btn" onclick="toggleAudio()" style="display: none;">🔊</button>
 
-  <!-- Password Locker -->
+  <!-- Date of Birth Locker -->
   <div class="card locker-card" id="locker-screen">
     <div class="locker-icon">🔐</div>
     <h1>Something Special 💖</h1>
-    <p class="locker-subtitle">Choose your date from the calendar or enter it using the keyboard.</p>
+    <p class="locker-subtitle">Enter Website Admin Date of Birth</p>
     <div class="password-wrap dob-wrap">
-      <input type="date" id="dob-input" aria-label="Date of birth" onchange="clearDobMessage()" onkeydown="handleDobKey(event)">
+      <input type="text" id="dob-input" inputmode="numeric" maxlength="5" placeholder="DD/MM" aria-label="Date of birth" oninput="formatDob(this)" onkeydown="handleDobKey(event)">
     </div>
-    <span class="dob-hint">Calendar 📅 or keyboard ⌨️</span>
-    <button id="unlock-btn" onclick="checkPassword()">Unlock 🔓</button>
+    <button id="unlock-btn" onclick="checkPassword()">Continue 💖</button>
     <p id="password-message" class="password-message"></p>
+  </div>
+
+  <!-- About You Quiz -->
+  <div class="card quiz-card" id="quiz-screen" style="display: none;">
+    <div class="quiz-badge">💌</div>
+    <p class="quiz-progress" id="quiz-progress">Question 1 of 5</p>
+    <h1 id="quiz-question">Question</h1>
+    <div id="quiz-options" class="quiz-options"></div>
+    <p id="quiz-message" class="quiz-message"></p>
   </div>
 
   <!-- Protected Second Page -->

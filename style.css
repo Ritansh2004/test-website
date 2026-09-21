@@ -394,3 +394,79 @@ button:active {
   position: relative;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
+/* About You Quiz */
+.quiz-card {
+  min-height: 430px;
+  justify-content: center;
+}
+
+.quiz-badge {
+  font-size: 3.2rem;
+  margin-bottom: 6px;
+  animation: lockFloat 2s ease-in-out infinite;
+}
+
+.quiz-progress {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  color: #999;
+  font-weight: 600;
+}
+
+.quiz-card h1 {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.quiz-subtitle {
+  color: #666;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.quiz-options {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.quiz-option {
+  width: 100%;
+  padding: 12px 10px;
+  border: 2px solid #ffd2dc;
+  border-radius: 14px;
+  background: #fff;
+  color: #555;
+  font-family: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #ff758c;
+  background: #fff5f7;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+.quiz-message {
+  min-height: 22px;
+  margin: 15px 0 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.quiz-message.success { color: #28a745; }
+.quiz-message.error { color: #e55353; }
+
+@media (max-width: 480px) {
+  .quiz-options {
+    grid-template-columns: 1fr;
+  }
+}
