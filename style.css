@@ -18,3 +18,16 @@
   cursor: pointer;
   filter: invert(35%) sepia(85%) saturate(2000%) hue-rotate(335deg) brightness(100%) contrast(100%);
 }
+
+.calendar-input {
+  padding: 10px 15px;
+  border: 2px solid #ff4b2b;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  color: #444;
+  width: 100%;
+  max-width: 200px;
+  cursor: pointer;
+}

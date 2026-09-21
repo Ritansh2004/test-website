@@ -49,22 +49,16 @@
     <div class="letter-box">
       <button class="close-btn" onclick="closeProposal()">×</button>
       
-      <div class="letter-header" style="font-size: 1.3rem; font-weight: 600; color: #ff4b2b; margin-bottom: 10px;">
-        🔒 Love Locker
-      </div>
-      
-      <!-- Caption according to your requirement -->
-      <p class="letter-text" style="font-size: 1.1rem; color: #444; margin-bottom: 15px;">
+      <div class="letter-header" style="font-size: 1.5rem; font-weight: 600; color: #ff4b2b; margin-bottom: 10px;">🔒 Love Locker</div>
+      <p class="letter-text" style="font-size: 1.1rem; color: #444; margin-bottom: 20px;">
         enter ur birth date
       </p>
-
-      <!-- Calendar Input -->
-      <div class="locker-container" style="display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%;">
+      
+      <div class="proposal-buttons" style="flex-direction: column; gap: 15px;">
         <input type="date" id="birth-date-input" class="calendar-input">
-        <button id="unlock-btn" onclick="unlockLoveLocker()">Unlock Locker 💖</button>
+        <button id="unlock-btn" onclick="unlockLocker()">Unlock 💖</button>
       </div>
-
-      <p id="locker-msg" style="margin-top: 15px; font-size: 0.95rem; font-weight: 500;"></p>
+      <p id="locker-msg" style="margin-top: 15px; font-weight: bold;"></p>
     </div>
   </div>
 
