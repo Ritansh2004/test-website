@@ -419,22 +419,6 @@ button:active {
 .quiz-message.success { color: #28a745; }
 .quiz-message.error { color: #e55353; }
 
-@media (max-width: 700px) {
-  .result-card {
-    width: 92vw;
-    max-height: 90vh;
-    padding: 22px 18px;
-  }
-
-  .result-list {
-    max-height: 42vh;
-  }
-
-  .result-actions {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 480px) {
   .quiz-options {
     grid-template-columns: 1fr;
@@ -458,12 +442,8 @@ button:active {
 }
 
 .result-card {
-  width: min(760px, 92vw);
-  min-height: 0;
-  max-height: 88vh;
-  padding: 24px 28px;
-  justify-content: flex-start;
-  overflow: hidden;
+  min-height: 430px;
+  justify-content: center;
 }
 
 .result-card h1 {
@@ -480,7 +460,7 @@ button:active {
 
 .result-list {
   width: 100%;
-  max-height: 38vh;
+  max-height: 285px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -513,14 +493,10 @@ button:active {
 .result-actions {
   width: 100%;
   margin-top: 15px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
 }
 
 .result-actions button {
   width: 100%;
-  min-height: 48px;
 }
 
 .quiz-option.wrong {
