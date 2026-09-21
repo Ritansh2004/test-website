@@ -127,43 +127,38 @@ function getQuestionsForDob(dob) {
   const month = dob.slice(5, 7);
   const ddmm = `${day}/${month}`;
   const special = specialDayForDob(ddmm);
-  const dayName = getDayName(dob);
   const monthName = getMonthName(dob);
-  const zodiac = getZodiacSign(dob);
 
   const questions = [];
 
+  // Only use an objective DOB-based question when there is a clearly
+  // identifiable special day. Otherwise keep the DOB connection personal
+  // rather than asking an overly simple date/month/zodiac question.
   if (special) {
+    const distractors = [
+      "Republic Day",
+      "Independence Day",
+      "Children's Day",
+      "Christmas Day",
+      "Teachers' Day",
+      "Valentine's Day"
+    ].filter(option => option !== special);
+
     questions.push({
       type: "fixed",
-      question: `Tumhare birthday (${formatDisplayDate(dob)}) par India mein kaunsa special day hota hai? 🇮🇳`,
-      options: shuffleOptions([special, "Republic Day", "Independence Day", "Children's Day"]),
+      question: `Tumhare birthday (${formatDisplayDate(dob)}) par India mein kaunsa special day hota hai? 🇮🇳💖`,
+      options: shuffleOptions([special, ...shuffleOptions(distractors).slice(0, 3)]),
       answer: special
     });
   } else {
     questions.push({
-      type: "fixed",
-      question: `Tumhare birthday (${formatDisplayDate(dob)}) ka weekday kya tha? 📅`,
-      options: shuffleOptions([dayName, "Monday", "Wednesday", "Saturday"]),
-      answer: dayName
+      type: "open",
+      question: `Tumhara birthday ${monthName} mein aata hai... agar us month mein hum ek special date plan karein, tum kya choose karoge? 💕`,
+      options: ["Candlelight dinner 🕯️", "Long drive 🌙", "Sunset walk 🌅", "Cozy movie night 🎬"]
     });
   }
 
-  questions.push({
-    type: "fixed",
-    question: `Tumhara birthday kis month mein aata hai? 🎂`,
-    options: shuffleOptions([monthName, "January", "June", "December"]),
-    answer: monthName
-  });
-
-  questions.push({
-    type: "fixed",
-    question: `Tumhari date of birth ke according tumhara zodiac sign kya hai? ✨`,
-    options: shuffleOptions([zodiac, "Leo ♌", "Libra ♎", "Pisces ♓"]),
-    answer: zodiac
-  });
-
-  // User-dependent questions: no correct/incorrect answer.
+  // Personal-choice questions: no correct/incorrect answer.
   questions.push({
     type: "open",
     question: "Agar hum dono ek perfect date par jaayein, tum kya choose karoge? 💕",
@@ -172,14 +167,26 @@ function getQuestionsForDob(dob) {
 
   questions.push({
     type: "open",
-    question: "Mere liye sabse cute surprise kya ho sakta hai? 🎁",
+    question: "Agar main tumhe ek surprise doon, tum sabse zyada kya chahoge? 🎁",
     options: ["Handwritten letter 💌", "Flowers 🌹", "Chocolate 🍫", "Surprise visit 🥰"]
   });
 
   questions.push({
     type: "open",
-    question: "Ek romantic evening tumhare liye kaisi honi chahiye? ✨",
+    question: "Humari ek perfect romantic evening tumhare liye kaisi honi chahiye? ✨",
     options: ["Hours of talking 💬", "Stargazing 🌌", "Music together 🎶", "Bas saath rehna 💖"]
+  });
+
+  questions.push({
+    type: "open",
+    question: "Agar hum ek memory ko forever save kar sakein, tum kya choose karoge? 📸",
+    options: ["First date 💗", "Late-night conversation 🌙", "A surprise moment 🎁", "A simple day together 🥰"]
+  });
+
+  questions.push({
+    type: "open",
+    question: "Mere saath tumhe sabse zyada kya feel karna pasand hoga? 💞",
+    options: ["Loved ❤️", "Peaceful 🌸", "Excited ✨", "Safe & comfortable 🤗"]
   });
 
   return questions;
@@ -249,6 +256,14 @@ function renderResults() {
     row.innerHTML = `<div class="result-question">${index + 1}. ${item.question}</div><div class="result-answer">${item.answer}</div>`;
     resultList.appendChild(row);
   });
+}
+
+function declineSecretLocker() {
+  const message = document.getElementById("result-message");
+  if (message) {
+    message.textContent = "No problem 💗 Your answers are saved above.";
+    message.className = "result-choice-message";
+  }
 }
 
 function openSecretLocker() {
